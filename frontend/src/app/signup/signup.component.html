@@ -1,0 +1,60 @@
+<div #signup_component>
+    <p>Create an account below</p>
+    <form action="post">
+        <label for="username">Username</label>
+        <input type="text">
+        <br>
+        <label for="name">Name</label>
+        <input type="text">
+        <br>
+        <label for="email">Email</label>
+        <input type="email">
+        <br>
+        <label for="user-role">User type</label>
+        <select name="user-role" id="user-role" (change)="changeUserType()">
+            <option disabled selected value> -- Select an option -- </option>
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+        </select>
+        <br>
+        <!-- <div *ngIf="userType === 'doctor' ; then doctor; else patient"></div>
+
+        <ng-template #doctor>
+            <p>{{userType}} Hey doc</p>
+        </ng-template>
+
+        <ng-template #patient>
+            <p>{{userType}} Hey pat</p>
+        </ng-template> -->
+
+        <div [ngSwitch]="userType">
+            <div *ngSwitchCase=" 'doctor' ">
+                <label for="specialization">Specialization</label>
+                <select name="specialization" id="specialization">
+
+                </select>
+                <br>
+                <label for="qualifications">Qualifications</label>
+                <textarea name="qualifications" id="qualifications" cols="30" rows="5"></textarea>
+            </div>
+
+            <div *ngSwitchCase=" 'patient' ">
+                <label for="dob">Date of birth</label>
+                <input type="date">
+                <br>
+                <label for="gender">Gender</label>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="male">Female</label>
+            </div>
+            <br>
+            <div *ngSwitchDefault></div>
+        </div>
+
+        <!-- <ng-template *ngIf=" userType === '' "></ng-template>
+        <ng-template *ngIf=" userType === 'doctor' ">Hey doc</ng-template>
+        <ng-template *ngIf=" userType === 'patient' ">Hey pat</ng-template> -->
+        <input type="submit">
+    </form>
+</div>
