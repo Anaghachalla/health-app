@@ -39,7 +39,11 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('CURRENT%USER')
     localStorage.removeItem('USER%TYPE')
     localStorage.removeItem('SHOW%FEEDBACK')
-    document.cookie = `username=${this.user_details.username}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=http://localhost:4200/`;
+    let details = {
+      username: this.user_details.username,
+      user_type: this.user_details.user_type
+    }
+    document.cookie = `userdetails=${JSON.stringify(details)}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=http://localhost:4200/`;
     this.router.navigate([''], { relativeTo: this.route })
   }
 

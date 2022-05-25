@@ -71,11 +71,11 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('USER%TYPE', result._doc.user_type)
 
         
-        // if(this.loginDetails.remember_me!='')
-        // {
-        //   this.createCookie(this.loginDetails.username, this.loginDetails.user_role)
-        // }
-        //this.getfeedback()
+        if(this.loginDetails.remember_me!='')
+        {
+          this.createCookie(this.loginDetails.username, this.loginDetails.user_role)
+        }
+        // this.getfeedback()
 
         //route to home
         this.router.navigate(['/home'], { relativeTo: this.route, replaceUrl:true })
@@ -107,56 +107,19 @@ export class LoginComponent implements OnInit {
   //   })
   // }
 
-  // createCookie(uname:any, user_type: any)
-  // {
-  //   var date = new Date()
-  //   date.setTime(date.getTime() + (2*24*60*60*1000))
-  //   var cookie = `username=${uname}; user_type=${user_type}; expires=${date.toUTCString()}; path= http://localhost:4200/`
-  //   document.cookie = cookie
-  // }
+  createCookie(uname:any, user_type: any)
+  {
+    var date = new Date()
+    var details = {
+      username: uname,
+      user_type: user_type
+    }
+    date.setTime(date.getTime() + (2*24*60*60*1000))
+    var cookie = `userdetails=${JSON.stringify(details)};expires=${date.toUTCString()};path= http://localhost:4200/`
+    document.cookie = cookie
+  }
 
-  // checkCookie()
-  // {
-  //     let user = this.getCookie()
-      
-  //     if(user!=='' && user)
-  //     {
-  //         //if cookie exists- log user in
-  //         console.log('cookie exists');
-          
-  //         this.userService.getUser(user).subscribe((data : any)=>{
-  //           console.log(data);
-            
-  //           localStorage.setItem('CURRENT%USER', JSON.stringify(data._doc));
-  //           this.router.navigate(['/home'], { relativeTo: this.route })
-  //         })
-          
-  //     }
-  //     else
-  //     {
-  //         console.log('no cookie');
-  //     }
   
-  // }
-  
-  // getCookie()
-  // {
-  //     let decodedCookie = decodeURIComponent(document.cookie)
-  //     let cookieData = decodedCookie.split(';')
-  //     if(cookieData)
-  //     {
-  //         for(let i =0; i<cookieData.length; i++)
-  //         {
-  //             if (cookieData[i].includes('username='))
-  //             {
-  //                 var uname = cookieData[i].split('=')[1]
-  //                 return uname
-  //             }
-  //         }
-  //     }
-  //     return ''
-  // }
-
 
 
 }

@@ -32,7 +32,8 @@ export class SignupComponent implements AfterViewInit{
     specialization: '',
     qualifications: '',
     dob: '',
-    gender: ''
+    gender: '',
+    remember_me: ''
   }
 
   //@ViewChild('signup_component') signup_component: ElementRef
@@ -95,6 +96,11 @@ export class SignupComponent implements AfterViewInit{
         delete result._doc.__v
         localStorage.setItem('CURRENT%USER', JSON.stringify(result._doc))
         localStorage.setItem('USER%TYPE', result._doc.user_type)
+
+        if(this.signupDetails.remember_me!='')
+        {
+          this.createCookie(this.signupDetails.username, this.signupDetails.user_role)
+        }
         //this.getfeedback()
         this.router.navigate(['/home'], { relativeTo: this.route, replaceUrl:true })
       }
@@ -121,7 +127,8 @@ export class SignupComponent implements AfterViewInit{
       specialization: '',
       qualifications: '',
       dob: '',
-      gender: ''
+      gender: '',
+      remember_me: ''
     }
     
   }
@@ -139,6 +146,18 @@ export class SignupComponent implements AfterViewInit{
   //     }
   //   })
   // }
+
+  createCookie(uname:any, user_type: any)
+  {
+    var date = new Date()
+    var details = {
+      username: uname,
+      user_type: user_type
+    }
+    date.setTime(date.getTime() + (2*24*60*60*1000))
+    var cookie = `userdetails=${JSON.stringify(details)};expires=${date.toUTCString()};path= http://localhost:4200/`
+    document.cookie = cookie
+  }
   
 
 }

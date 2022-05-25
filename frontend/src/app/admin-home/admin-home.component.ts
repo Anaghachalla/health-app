@@ -32,7 +32,6 @@ export class AdminHomeComponent implements OnInit {
   sortFeedback()
   {
     var sort = document.getElementById('sort') as HTMLSelectElement
-    
     this.userService.sortFeedback(sort.value).subscribe((data:any)=>{
       this.feedbacks = data.data;
     })
@@ -40,7 +39,6 @@ export class AdminHomeComponent implements OnInit {
   filterFeedback()
   {
     var filter = document.getElementById('filter') as HTMLSelectElement
-    
     this.userService.filterFeedback(filter.value).subscribe((data:any)=>{
       this.feedbacks = data.data;
     })

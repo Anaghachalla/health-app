@@ -32,50 +32,50 @@ export class IndexComponent implements OnInit{
           }
         }
     })();
-    //this.checkCookie()
+    this.checkCookie()
   }
 
-  // checkCookie()
-  // {
-  //     let user = this.getCookie()
-  //     if(user!=='' && user)
-  //     {
-  //         //if cookie exists- log user in
-  //         console.log('cookie exists');
-  //         console.log(user);
+  checkCookie()
+  {
+      let userdetails = this.getCookie()
+      if(userdetails!=='' && userdetails)
+      {
+          //if cookie exists- log user in
+          console.log('cookie exists');
+          console.log(userdetails);
           
-  //         this.userService.getUser(user).subscribe((data : any)=>{
-  //           console.log(data);
+          this.userService.getUser(userdetails).subscribe((data : any)=>{
+            console.log(data);
             
-  //           localStorage.setItem('CURRENT%USER', JSON.stringify(data._doc));
-  //           this.router.navigate(['/home'], { relativeTo: this.route })
-  //         })
+            localStorage.setItem('CURRENT%USER', JSON.stringify(data._doc));
+            this.router.navigate(['/home'], { relativeTo: this.route })
+          })
           
-  //     }
-  //     else
-  //     {
-  //         console.log('no cookie');
-  //     }
+      }
+      else
+      {
+          console.log('no cookie');
+      }
   
-  // }
+  }
   
-  // getCookie()
-  // {
-  //     let decodedCookie = decodeURIComponent(document.cookie)
-  //     let cookieData = decodedCookie.split(';')
-  //     if(cookieData)
-  //     {
-  //         for(let i =0; i<cookieData.length; i++)
-  //         {
-  //             if (cookieData[i].includes('username='))
-  //             {
-  //                 var uname = cookieData[i].split('=')[1]
-  //                 return uname
-  //             }
-  //         }
-  //     }
-  //     return ''
-  // }
+  getCookie()
+  {
+      let decodedCookie = decodeURIComponent(document.cookie)
+      let cookieData = decodedCookie.split(';')
+      if(cookieData)
+      {
+          for(let i =0; i<cookieData.length; i++)
+          {
+              if (cookieData[i].includes('userdetails='))
+              {
+                  var details = cookieData[i].split('=')[1]
+                  return JSON.parse(details)
+              }
+          }
+      }
+      return ''
+  }
 
 
 }
