@@ -75,8 +75,6 @@ export class LoginComponent implements OnInit {
         {
           this.createCookie(this.loginDetails.username, this.loginDetails.user_role)
         }
-        // this.getfeedback()
-
         //route to home
         this.router.navigate(['/home'], { relativeTo: this.route, replaceUrl:true })
         
@@ -92,20 +90,6 @@ export class LoginComponent implements OnInit {
       i.innerText=''
     })
   }
-
-  // getfeedback()
-  // {
-  //   this.userService.getUserFeedback(this.loginDetails.username).subscribe((data:any)=>{
-  //     if(data.data==='')
-  //     {
-  //       localStorage.setItem('SHOW%FEEDBACK', 'true')
-  //     }
-  //     else
-  //     {
-  //       localStorage.setItem('SHOW%FEEDBACK', 'false')
-  //     }
-  //   })
-  // }
 
   createCookie(uname:any, user_type: any)
   {

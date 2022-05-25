@@ -22,13 +22,7 @@ export class DoctorSearchComponent implements OnInit {
   appointment_doc_name: any
 
   ngOnInit(): void {
-    // this.userService.getAllDoctors().subscribe((data : any)=>{
-    //   if(data.status ==='success')
-    //   {
-    //     this.doctors = data.data
-    //     console.log(this.doctors);
-    //   }
-    // })
+    
     this.applyFilter()
     this.userService.getSpecializations().subscribe((data:any)=>{
       this.specializations = data

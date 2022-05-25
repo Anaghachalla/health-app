@@ -22,7 +22,6 @@ export class PatientProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userType = localStorage.getItem('USER%TYPE')
     this.userData = JSON.parse(localStorage.getItem('CURRENT%USER') || '{}')
-    //this.userData.dob = new Date(this.userData.dob).toDateString()
     this.new_user_data = {
       username: this.userData.username,
       name: this.userData.name,
@@ -59,7 +58,6 @@ export class PatientProfileComponent implements OnInit {
   {
     this.userService.editUserDetails(this.new_user_data).subscribe((data : any)=>{
       this.userData = data._doc
-      //this.userData.dob_display = new Date(this.userData.dob).toDateString()
       localStorage.setItem('CURRENT%USER', JSON.stringify(this.userData))
       this.cancelEdit()
     })

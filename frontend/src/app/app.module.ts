@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 //services
 import { UserDetailsService } from './user-details.service';
 import { IndexComponent } from './index/index.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HeaderComponent } from './header/header.component';
 import { PatientHomeComponent } from './patient-home/patient-home.component';
 import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
@@ -36,7 +35,6 @@ import { FeedbackPopupComponent } from './feedback-popup/feedback-popup.componen
     SignupComponent,
     LoginComponent,
     IndexComponent,
-    ForgotPasswordComponent,
     HeaderComponent,
     PatientHomeComponent,
     DoctorHomeComponent,

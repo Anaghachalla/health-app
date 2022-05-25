@@ -36,7 +36,7 @@ export class SignupComponent implements AfterViewInit{
     remember_me: ''
   }
 
-  //@ViewChild('signup_component') signup_component: ElementRef
+
   ngAfterViewInit() {
     this.userService.getSpecializations().subscribe(data => {
       this.specializations=data
@@ -90,7 +90,6 @@ export class SignupComponent implements AfterViewInit{
         this.clearErrors()
         
         //this.clearInputs()
-        
         delete result.status
         delete result._doc._id
         delete result._doc.__v
@@ -101,7 +100,6 @@ export class SignupComponent implements AfterViewInit{
         {
           this.createCookie(this.signupDetails.username, this.signupDetails.user_role)
         }
-        //this.getfeedback()
         this.router.navigate(['/home'], { relativeTo: this.route, replaceUrl:true })
       }
     })
@@ -133,19 +131,6 @@ export class SignupComponent implements AfterViewInit{
     
   }
 
-  // getfeedback()
-  // {
-  //   this.userService.getUserFeedback(this.signupDetails.username).subscribe((data:any)=>{
-  //     if(data.data==='')
-  //     {
-  //       localStorage.setItem('SHOW%FEEDBACK', 'true')
-  //     }
-  //     else
-  //     {
-  //       localStorage.setItem('SHOW%FEEDBACK', 'false')
-  //     }
-  //   })
-  // }
 
   createCookie(uname:any, user_type: any)
   {

@@ -3,12 +3,6 @@ const validation = require('validator')
 const bcrypt = require('bcryptjs')
 
 
-// const addressSchema = mongoose.Schema({
-//     Area: String,
-//     City: String,
-//     Pincode: Number
-// })
-
 const patientSchema = mongoose.Schema({
     name : {
         type: String,
@@ -74,7 +68,6 @@ const patientSchema = mongoose.Schema({
     gender: {
         type: String
     },
-    //address: addressSchema,
     address: String,
     
     createdAt: {
