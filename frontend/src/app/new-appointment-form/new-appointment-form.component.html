@@ -1,0 +1,28 @@
+<div id="new-appointment" class="popup">
+    <form>
+        <label for="patient">Appointment for</label>
+        <br>
+        <input type="text" name="patient" value="{{current_user.name}}" [(ngModel)]="appointment_details.patient_name">
+        <br>
+        <label for="doctor">Appointment with</label>
+        <br>
+        <input type="text" name="doctor" value="Dr. {{doctor_name}}" readonly>
+        <br>
+        <label for="time">Preferred appointment time</label>
+        <br>
+        <input type="datetime-local" name="time" [(ngModel)]="appointment_details.time">
+        <br>
+        <label for="problem">Describe your problem</label>
+        <br>
+        <textarea name="problem" cols="30" rows="10" [(ngModel)]="appointment_details.problem">Type here</textarea>
+        <br>
+        <!-- <label for="files">Upload documents if any</label>
+        <br>
+        <input type="file" name="files"> -->
+        <br>
+        <div class="options">
+            <button class="box-button-red" (click)="closeAppointmentForm()">Cancel</button>
+            <button class="box-button-green" (click)="scheduleAppointment()">Confirm</button>
+        </div>
+    </form>
+</div>

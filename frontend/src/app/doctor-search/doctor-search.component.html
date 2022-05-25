@@ -1,0 +1,34 @@
+<div id="doctors-div" class="not-popup">
+    <div class="options">
+        <select name="specializations-filter" id="specializations-filter" (change)="applyFilter()">
+            <!-- <option disabled selected value=""> -- Specialization -- </option> -->
+            <option value="all" selected>All</option>
+            <option *ngFor="let spec of specializations" value="{{ spec.toLowerCase() }}">{{ spec }}</option>
+        </select>
+        <input type="text" name="doctor-search" id="search-bar" placeholder="Search for Doctors">
+        <button (click)="searchDoctor()" class="box-button">Go</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="doctors-list" *ngIf="!doctors || doctors.length>0; else noResults">
+        <div class="doctor-card" *ngFor="let doc of doctors" id="{{doc.username}}">
+            <p class="name">Dr. {{doc.name}}</p>
+            <p class="specialization">{{doc.specialization| titlecase}}</p>
+            <p class="qualifications">{{doc.qualifications.join(', ')}}</p>
+            <p class="email">{{doc.email}}</p>
+            <div class="options">
+                <button class="box-button-green" (click)="getAppointmentView(doc.username, doc.name)">Schedule appointment</button>
+            </div>
+        </div>
+    </div>
+    <ng-template #noResults>
+        <div style="text-align: center;">
+            No doctors found
+        </div>
+    </ng-template>
+</div>
+
+<div id="appointment-view" style="display: none;" >
+    <app-new-appointment-form [doctor_uname]="appointment_doc_uname" [doctor_name]="appointment_doc_name"></app-new-appointment-form>
+</div>

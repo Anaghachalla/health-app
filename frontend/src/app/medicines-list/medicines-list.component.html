@@ -1,0 +1,87 @@
+<div id="medicines-list" class="not-popup">
+    <div class="search-bar">
+        <input type="text" name="search-bar" placeholder="Search for medicines" id="search-bar" (change)="getMedicines()">
+        <br>
+        <br>
+        <div class="parent">
+            <div class="results-list" *ngFor="let med of medicines">
+                <div class="medicine-card" *ngIf="med.openfda.generic_name">
+                    <div>
+                        <p>Name: {{med.openfda.generic_name}}</p>
+                        <p>Manufacturer: {{med.openfda.manufacturer_name}}</p>
+                        <p>Product type: {{med.openfda.product_type}}</p>
+                        <div class="actions">
+                            <div>
+                                <button (click)="showDetails(med.openfda.unii[0])" class="no-box-button">View Details</button>
+                            </div>
+                            <div>
+                                <input type="number" min="0" class="quantity" id="{{med.openfda.unii[0]}}" value="0">
+                                <button class="box-button-green" (click)="addToCart(med.openfda.unii[0], med.openfda.generic_name[0], med.openfda.application_number[0])">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    <div class="cart">
+        <div *ngIf="cart; then cartNotEmpty; else cartEmpty"></div> <!--.length>0-->
+        <ng-template #cartEmpty>
+            <div class="cart-child">
+                <h4>Your cart is empty!</h4>
+            </div>
+        </ng-template>
+        <ng-template #cartNotEmpty>
+            <div class="cart-child">
+                <h4 class="style">Cart Items</h4>
+                <div>
+                    
+                    <span class="cart-heading">Drug</span> 
+                    <span class="cart-heading">Cost</span>
+                    <span class="cart-heading">Quantity</span> 
+                    <span class="cart-heading">Total cost</span> 
+                        
+                    <div *ngFor="let item of cart" class="cart-list">
+                        <br>
+                        <span class="cart-items">{{item.name}}</span>
+                        <span class="cart-items">{{item.cost}}</span> 
+                        <input type="number" min="0" value="{{item.quantity}}" class="input-in-cart" id="cart-{{item.unii}}" (change)="changeQuantity(item.unii)">
+                        <span class="cart-items last">{{item.cost * item.quantity}}</span>
+                        
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <p class="style">Cart total <span class="total">{{total_cost}}</span></p>
+                        <br>
+                        <button class="box-button-green" (click)="cartCheckout()">Checkout</button>
+                    </div>
+                </div>
+                
+            </div>
+        </ng-template>
+        <br>
+        <br>
+        <br>
+        <div id="checkout" style="display: none;">
+            <div *ngIf="user.address; then addressExists; else noAddress"></div>
+            <ng-template #addressExists>
+               <p>The order will be delivered to:</p>
+               <p>{{user.address}}</p>
+               <div>
+                <button class="box-button-green confirm" (click)="confirmOrder()">Confirm</button>
+                <button class="box-button-red confirm" (click)="cancelOrder()">Cancel</button>
+               </div>
+            </ng-template>
+            <ng-template #noAddress>
+                <p class="no-box-button" routerLink="/profile">Add an address to deliver</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div id="medicine-details" *ngIf="show_details_popup">
+    <app-medicine-details [unii]="unii" [med_details]="med_details" (displayPopup)="closePopup($event)"></app-medicine-details>
+</div>

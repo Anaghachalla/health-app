@@ -1,0 +1,16 @@
+.remember-me>p{
+    display: inline;
+    font-size: 14px;
+}
+.remember-me>input{
+    width: 12px;
+    vertical-align: middle;
+}
+
+#login_component{
+    text-align: center;
+}
+
+*{
+    text-align: center;
+}

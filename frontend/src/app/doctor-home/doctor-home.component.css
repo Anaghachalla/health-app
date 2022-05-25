@@ -1,0 +1,38 @@
+*{
+    text-align: left;
+}
+
+div#heading{
+    margin: 3%;
+    margin-right: 50%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+div#heading>h2{
+    font-family: 'Tajawal', sans-serif;
+    margin-left: 1%;
+}
+
+.appointment-schedule{
+    margin-left: 4%;
+}
+
+.no-apps{
+    margin-left: 4%;
+}
+
+.heading{
+    font-weight: bolder;
+}
+
+.appointment-card{
+    margin: 2%;
+    width: 89%;
+    height: 170px;
+    padding: 18px;
+    box-shadow: 2px 2px 10px 3px #afafaf;
+}
+
+.appointment-card:hover{
+    transform: scale(1.03);
+}

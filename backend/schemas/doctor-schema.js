@@ -3,27 +3,38 @@ const validation = require('validator')
 const bcrypt = require('bcryptjs')
 
 
-const addressSchema = mongoose.Schema({
-    Area: String,
-    City: String,
-    Pincode: Number
-})
+// const addressSchema = mongoose.Schema({
+//     Area: String,
+//     City: String,
+//     Pincode: Number
+// })
 
 const doctorSchema = mongoose.Schema({
     name : {
         type: String,
-        required: true
+        required: 'Name is required',
+        validate:{
+            validator: (value)=>{
+                return (/[a-z A-Z]/.test(value)) && !(/[^a-zA-Z\d\s:]/.test(value))
+            }
+        }
     },
     username:{
         type: String,
         minLength: 5,
-        required : true,
+        required : 'Username is required',
         immutable: true,
         unique: true,
+        validate :{
+            validator: (value)=>{
+                return /[a-z A-Z 0-9]/.test(value) && !(/\W/.test(value))
+            },
+            message: 'Username is invalid'
+        }
     },
     email: {
         type: String,
-        required: true,
+        required: 'Email is required',
         lowercase: true, 
         validate : {
             validator : async (value)=> { return await validation.isEmail(value) },
@@ -32,29 +43,46 @@ const doctorSchema = mongoose.Schema({
     },
     password:{
         type:String,
-        required: true,
+        required: 'Password is required',
         validate : {
             validator: (value)=>{
-               return (/[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value) && !/\s/.test(value) && /\W/.test(value))
+               return (/[a-z A-Z 0-9]/.test(value) && !/\s/.test(value))
             },
-            message: "Invalid password"
+            message: "Invalid password",
         }
     },
-    // age: {
-    //     type: Number,
-    //     min: 18,
-    //     max: 30,
-    // },
+    confirm_password:{
+        type: String,
+        required: 'Confirm your password',
+        validate: {
+            validator: function (value){
+                return value===this.password
+            },
+            message: 'Passwords do not match'
+        }
+    },
+    user_type:{
+        type: String,
+        default: 'doctor'
+    },
     phone: String,
     specialization: {
         type: String,
-        required: 'Specialization not specified'
+        required: 'Specialization is required'
     },
     qualifications: {
         type: [String],
-        required: 'Qualifications not specified'
+        required: 'Qualifications are required',
+        validate: {
+            validator: (value)=>{
+                return value[0].length>0
+            },
+            message: 'Qualifications are required'
+        }
+
     },
-    address: addressSchema,
+    // address: addressSchema,
+    address: String,
     createdAt: {
         type: Date,
         default: new Date(),
@@ -67,7 +95,10 @@ doctorSchema.pre('save', function(next) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(this.password, salt);
     this.password = hash;
+    
+    this.confirm_password = undefined
     //qualifications string
+    this.qualifications = this.qualifications.toString().split('\n')
     next()
 });
 

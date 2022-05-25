@@ -1,0 +1,39 @@
+#admin-home{
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.options{
+    float: right;
+}
+
+.options>*{
+    text-align: center;
+    margin-left: 10px;
+}
+
+.options>select{
+    width: 150px;
+}
+.feedbacks{
+    text-align: center;
+}
+table{
+    width: 90%;
+    line-height: 170%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th{
+    font-variant-caps:all-petite-caps;
+    font-size: 150%;
+}
+
+th, td{
+    padding: 10px;
+}
+
+tr:nth-child(odd) {
+    background-color: rgb(228, 228, 228);
+}

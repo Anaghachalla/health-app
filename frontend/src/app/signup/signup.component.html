@@ -1,60 +1,73 @@
-<div #signup_component>
+<div #signup_component id="signup_component">
     <p>Create an account below</p>
-    <form action="post">
-        <label for="username">Username</label>
-        <input type="text">
+    <form class="signup-form form">
+        <input type="text" [(ngModel)]="signupDetails.username" name="username" placeholder="Username">
         <br>
-        <label for="name">Name</label>
-        <input type="text">
+        <span class="username-error error"></span>
         <br>
-        <label for="email">Email</label>
-        <input type="email">
+        <input type="text" [(ngModel)]="signupDetails.name" name="name" placeholder="Name">
         <br>
-        <label for="user-role">User type</label>
-        <select name="user-role" id="user-role" (change)="changeUserType()">
-            <option disabled selected value> -- Select an option -- </option>
+        <span class="name-error error"></span>
+        <br>
+        <input type="email" [(ngModel)]="signupDetails.email" name="email" placeholder="Email">
+        <br>
+        <span class="email-error error"></span>
+        <br>
+        <input type="password" name="password" [(ngModel)]="signupDetails.password" placeholder="Password">
+        <br>
+        <span class="password-error error"></span>
+        <br>
+        <input type="password" name="confirm_password" [(ngModel)]="signupDetails.confirm_password" placeholder="Confirm password">
+        <br>
+        <span class="confirm_password-error error"></span>
+        <br>
+        <select name="user-role" id="user-role" (change)="changeUserType()" [(ngModel)]="signupDetails.user_role">
+            <option disabled selected value> -- Create an account for -- </option>
             <option value="doctor">Doctor</option>
             <option value="patient">Patient</option>
         </select>
         <br>
-        <!-- <div *ngIf="userType === 'doctor' ; then doctor; else patient"></div>
-
-        <ng-template #doctor>
-            <p>{{userType}} Hey doc</p>
-        </ng-template>
-
-        <ng-template #patient>
-            <p>{{userType}} Hey pat</p>
-        </ng-template> -->
+        <span class="user-role-error error"></span>
+        <br>
 
         <div [ngSwitch]="userType">
             <div *ngSwitchCase=" 'doctor' ">
-                <label for="specialization">Specialization</label>
-                <select name="specialization" id="specialization">
-
+                <select name="specialization" id="specialization" [(ngModel)]="signupDetails.specialization">
+                    <option disabled selected value> -- Specialization -- </option>
+                    <option *ngFor="let spec of specializations" value="{{ spec.toLowerCase() }}">{{ spec }}</option>
                 </select>
                 <br>
-                <label for="qualifications">Qualifications</label>
-                <textarea name="qualifications" id="qualifications" cols="30" rows="5"></textarea>
+                <span class="specialization-error error"></span>
+                <br>
+                <textarea name="qualifications" id="qualifications" cols="30" rows="5" [(ngModel)]="signupDetails.qualifications" placeholder="Enter your Qualifications"></textarea>
+                <br>
+                <span class="qualifications-error error"></span>
             </div>
 
             <div *ngSwitchCase=" 'patient' ">
-                <label for="dob">Date of birth</label>
-                <input type="date">
+                <!-- <input type="date" [(ngModel)]="signupDetails.dob" name="dob" placeholder="Date of birth"> -->
+                <input placeholder="Date of birth" type="text" onfocus="(this.type='date')" id="date" [(ngModel)]="signupDetails.dob">
+                <br>
+                <span class="dob-error error"></span>
                 <br>
                 <label for="gender">Gender</label>
-                <input type="radio" id="male" name="gender" value="male">
+                <input type="radio" id="male" name="gender" value="male" [(ngModel)]="signupDetails.gender">
                 <label for="male">Male</label>
-                <input type="radio" id="female" name="gender" value="female">
+                <input type="radio" id="female" name="gender" value="female" [(ngModel)]="signupDetails.gender">
                 <label for="male">Female</label>
+                <br>
+                <span class="gender-error error"></span>
             </div>
-            <br>
             <div *ngSwitchDefault></div>
+            <div class="remember-me">
+                <input type="checkbox" id="remember-me" name="remember_me">
+                <p>Remember me</p>
+            </div>
         </div>
-
-        <!-- <ng-template *ngIf=" userType === '' "></ng-template>
-        <ng-template *ngIf=" userType === 'doctor' ">Hey doc</ng-template>
-        <ng-template *ngIf=" userType === 'patient' ">Hey pat</ng-template> -->
-        <input type="submit">
+        <button (click)="signupSubmit()" class="box-button">Signup</button>
     </form>
+    <div class="inline">
+        <p>Login instead</p>
+        <button routerLink="/login" class="no-box-button">Login</button>
+    </div>
 </div>

@@ -1,0 +1,9 @@
+<div *ngIf="user_type==='doctor'; then doctorProfile; else patientProfile"></div>
+
+<ng-template #doctorProfile>
+    <app-doctor-profile ></app-doctor-profile>
+</ng-template>
+
+<ng-template #patientProfile>
+    <app-patient-profile></app-patient-profile>
+</ng-template>

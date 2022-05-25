@@ -1,0 +1,23 @@
+<div id="doctor-home">
+    <div id="heading">
+        <h2>Hey {{current_user.name}}</h2>
+        <hr>
+        <p>Look at your schedule for today</p>
+    </div>
+    <div *ngIf="appointments.length>0; then appointmentsThere; else noAppointments"></div>
+    <ng-template #appointmentsThere>
+        <div class="appointment-schedule">
+            <div *ngFor="let app of appointments" class="appointment-card">
+                <p><span class="heading">Patient:</span>  {{app.patient_name}}</p>
+                <p><span class="heading">Age:</span>  {{app.age}} <span class="heading">Gender:</span>  {{app.gender | titlecase}}</p>
+                <p><span class="heading">Time:</span> {{app.time | date:'medium'}}</p>
+                <p><span class="heading">Problem:</span> {{app.problem}}</p>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #noAppointments>
+        <div class="no-apps">
+            <p>No appointments scheduled!</p>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,14 @@
+<div [ngSwitch]="user_type">
+    <div *ngSwitchCase="'doctor'">
+        <app-doctor-home ></app-doctor-home>
+    </div>
+    
+    <div *ngSwitchCase="'patient'">
+        <app-patient-home></app-patient-home>
+    </div>
+    
+    <div *ngSwitchCase="'admin'">
+        <app-admin-home></app-admin-home>
+    </div>
+</div>
+

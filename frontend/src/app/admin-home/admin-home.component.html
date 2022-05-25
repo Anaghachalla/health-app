@@ -1,0 +1,47 @@
+<div id="admin-home">
+    <div class="options">
+        <select name="sort" id="sort" (change)="sortFeedback()">
+            <option disabled selected value="">Sort Criteria</option>
+            <option value="date">Date</option>
+            <option value="ratings">Ratings</option>
+        </select>
+        <select name="filter" id="filter" (change)="filterFeedback()">
+            <option value="" disabled selected>Filter Ratings</option>
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 stars</option>
+        </select>
+        <input type="text" name="search" id="search" placeholder="Search for user">
+        <button class="box-button" (click)="searchFeedback()">Go</button>
+        <button class="no-box-button" (click)="clearInputs()">Clear all filters</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="feedbacks" *ngIf="feedbacks.length>0; else noFeedbacks">
+        <table class="feedback-table" CELLSPACING=0>
+            <tr>
+                <th>Username</th>
+                <th>User type</th>
+                <th>Date</th>
+                <th>Ratings</th>
+                <th>Suggessions</th>
+            </tr>
+            <tr *ngFor="let fb of feedbacks">
+                <td>{{fb.username}}</td>
+                <td>{{fb.user_type | titlecase}}</td>
+                <td>{{fb.createdAt | date: 'longDate'}}</td>
+                <td>{{fb.ratings}}</td>
+                <td>{{fb.suggessions}}</td>
+            </tr>
+        </table>
+    </div>
+    <ng-template #noFeedbacks>
+        <div>
+            No feedbacks to display
+        </div>
+    </ng-template>
+</div>

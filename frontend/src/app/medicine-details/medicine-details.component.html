@@ -1,0 +1,39 @@
+<div id="medicine-details" class="popup">
+    <h1>{{med_details[0].openfda.generic_name}}</h1>
+    <div *ngIf="med_details[0].openfda.manufacturer_name">
+        <h3>Manufacturer</h3>
+        <p>{{med_details[0].openfda.manufacturer_name}}</p>
+    </div>
+    <div *ngIf="med_details[0].description" class="description">
+        <h3>Description</h3>
+        <p>{{med_details[0].description}}</p>
+    </div>
+    <div *ngIf="med_details[0].how_supplied" class="how_supplied">
+        <h3>Supplied as</h3>
+        <p>{{med_details[0].how_supplied}}</p>
+    </div>
+    <div *ngIf="med_details[0].dosage_and_administration_table" class="dosage_table">
+        <h3>Dosage and Administration</h3>
+        <div [innerHTML]="med_details[0].dosage_and_administration_table"></div>  
+    </div>
+    <div *ngIf="med_details[0].geriatric_use">
+        <h3>Geriatric use</h3>
+        <p>{{med_details[0].geriatric_use}}</p>
+    </div>
+    <div *ngIf="med_details[0].general_precautions">
+        <h3>General Precautions</h3>
+        <p>{{med_details[0].general_precautions}}</p>
+    </div>
+    <div *ngIf="med_details[0].indications_and_usage">
+        <h3>Indications and usage</h3>
+        <p>{{med_details[0].indications_and_usage}}</p>
+    </div>
+    <br>
+    <div class="options">
+        <button class="box-button-red" (click)="changeDisplay()">Close</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>

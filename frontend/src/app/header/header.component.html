@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="not-popup">
+    <div *ngIf="current_user; then activeUser; else noActiveUser"></div>
+
+    <ng-template  #activeUser>
+        <div *ngIf="user_details.user_type==='admin'; then admin; else otherUser"></div>
+        <ng-template #otherUser>
+            <div class="header">
+                <h1>Clinical</h1>
+                <nav>
+                    <a (click)="goToHome()">Home</a>
+                    <a routerLink="/medicines">Medicines</a>
+                    <a class="dropdown" (mouseenter)="showOptions()" (mouseleave)="hideOptions()"><span class="material-symbols-outlined">account_circle</span></a>
+                </nav>
+            </div>
+            <div class="dropdown-options" (mouseenter)="showOptions()" (mouseleave)="hideOptions()">
+                <a (click)="goToProfile()">Profile</a>
+                <a routerLink="/feedback">Feedback</a>
+                <a (click)="logUserOut()">Logout</a>
+            </div>
+        </ng-template>
+
+        <ng-template #admin>
+            <div class="header">
+                <h1>Clinical</h1>
+                <nav>
+                    <a (click)="logUserOut()">Logout</a>
+                </nav>
+            </div>
+        </ng-template>
+    </ng-template>
+    <ng-template #noActiveUser >
+        <div class="header">
+            <h1>Clinical</h1>
+        </div>
+    </ng-template>
+</div>

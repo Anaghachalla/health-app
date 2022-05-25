@@ -1,0 +1,19 @@
+div#signup-component{
+    text-align: right
+}
+
+#signup_component{
+    text-align: center;
+}
+
+.remember-me>p{
+    display: inline;
+    font-size: 14px;
+}
+.remember-me>input{
+    width: 12px;
+    vertical-align: middle;
+}
+*{
+    text-align: center;
+}

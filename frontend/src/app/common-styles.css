@@ -1,0 +1,59 @@
+.error{
+    color: red;
+    font-size: 13px;
+}
+
+.box-button{
+    /* background-color: #6fd69d; */
+    background-color: rgba(100, 149, 237, 0.7);
+    border: none;
+    padding: 10px;
+}
+.no-box-button{
+    /* color: #6fd69d; */
+    color: cornflowerblue;
+    border: none;
+    background-color: white;
+    font-size: 15px;
+}
+
+*{
+    /* text-align: center; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+input, select{
+    width: 250px;
+    height: 35px;
+    margin-bottom: 7px;
+}
+
+input[type=radio]{
+    width: 30px;
+    height: 13px
+}
+
+.inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+    margin-left: 41%;
+    margin-bottom: 0px;
+}
+
+.inline>p{
+    font-size: 14px;
+}
+
+.box-button-green{
+    border: none;
+    padding: 10px;
+    background-color: #79D1C3
+}
+
+.box-button-red{
+    border: none;
+    padding: 10px;
+    background-color: rgb(219, 112, 112)
+}

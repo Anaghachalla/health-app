@@ -3,23 +3,34 @@ const validation = require('validator')
 const bcrypt = require('bcryptjs')
 
 
-const addressSchema = mongoose.Schema({
-    Area: String,
-    City: String,
-    Pincode: Number
-})
+// const addressSchema = mongoose.Schema({
+//     Area: String,
+//     City: String,
+//     Pincode: Number
+// })
 
 const patientSchema = mongoose.Schema({
     name : {
         type: String,
-        required: 'Name is missing'
+        required: 'Name is required',
+        validate:{
+            validator: (value)=>{
+                return (/[a-z A-Z]/.test(value)) && !(/[^a-zA-Z\d\s:]/.test(value))
+            }
+        }
     },
     username:{
         type: String,
         minLength: 5,
-        required : 'Username is missing',
+        required : 'Username is required',
         immutable: true,
         unique: true,
+        validate :{
+            validator: (value)=>{
+                return /[a-z A-Z 0-9]/.test(value) && !(/\W/.test(value))
+            },
+            message: 'Username is invalid'
+        }
     },
     email: {
         type: String,
@@ -35,16 +46,26 @@ const patientSchema = mongoose.Schema({
         required: 'Password is missing',
         validate : {
             validator: (value)=>{
-               return (/[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value) && !/\s/.test(value) && /\W/.test(value))
+                return (/[a-z A-Z 0-9]/.test(value) && !/\s/.test(value))
+               //return (/[a-z]/.test(value) && /[A-Z]/.test(value) && /[0-9]/.test(value) && !/\s/.test(value) && /\W/.test(value))
             },
             message: "Invalid password"
         }
     },
-    // age: {
-    //     type: Number,
-    //     min: 18,
-    //     max: 30,
-    // },
+    confirm_password:{
+        type: String,
+        required: 'Confirm your password',
+        validate: {
+            validator: function (value){
+                return value===this.password
+            },
+            message: 'Passwords do not match'
+        }
+    },
+    user_type:{
+        type: String,
+        default: 'patient'
+    },
     phone: String,
     dob: {
         type: Date,
@@ -53,7 +74,8 @@ const patientSchema = mongoose.Schema({
     gender: {
         type: String
     },
-    address: addressSchema,
+    //address: addressSchema,
+    address: String,
     
     createdAt: {
         type: Date,
@@ -68,6 +90,8 @@ patientSchema.pre('save', function(next) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(this.password, salt);
     this.password = hash;
+
+    this.confirm_password = undefined
     next()
 });
 

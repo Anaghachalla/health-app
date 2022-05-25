@@ -1,0 +1,58 @@
+#doctors-div{
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.options{
+    float: right;
+}
+
+input, select{
+    text-align: center;
+    margin-left: 10px;
+}
+
+.material-symbols-outlined{
+    vertical-align: middle;
+    font-size: 200%;
+}
+
+.doctor-card{
+    margin: 1%;
+    margin-right: 2%;
+    width: 350px;
+    height: 20%;
+    padding: 2%;
+    padding-top: 0.5%;
+    box-shadow: 2px 2px 10px 3px #afafaf;
+    line-height: 80%;
+}
+
+.doctors-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding-left: 2%;
+}
+
+.name{
+    font-size: 140%;
+}
+
+.email{
+    font-size: 93%;
+}
+
+.specialization{
+    font-size: 115%;
+}
+
+.qualifications{
+    font-size: 90%;
+    font-style: italic;
+}
+
+.box-button{
+    margin-left: 10px;
+}

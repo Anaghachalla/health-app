@@ -1,0 +1,29 @@
+.options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.options>div>img{
+    width: 370px;
+}
+
+.options>div{
+    width: 400px;
+    margin: 2%;
+    box-shadow: 3px 3px 8px 8px #b6b6b6;
+}
+
+#get-started{
+    font-size: 20px;
+}
+
+#heading{
+    font-size: 50px;
+    background: -webkit-linear-gradient(rgb(0, 89, 255), cornflowerblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#index-page{
+    text-align: center;
+}

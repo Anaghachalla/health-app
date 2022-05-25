@@ -7,6 +7,8 @@ const Specializations = require('../schemas/specializations-schema')
 
 const router = express.Router()
 
+//all specializations
+
 router.get('/specializations', async (req,res)=>{
     var spec = await Specializations.find({}, {specialization:1, _id: 0})
     var specializations=[]
@@ -18,6 +20,9 @@ router.get('/specializations', async (req,res)=>{
 
 router.post('/new', async(req,res)=>{
     var user_details = req.body
+    delete user_details.dob
+    delete user_details.gender
+    
     var existsUnameDoc = await Doctor.findOne({ username: req.body.username});
     var existsUnamePat = await Patient.findOne({ username: req.body.username});
     try
@@ -28,18 +33,14 @@ router.post('/new', async(req,res)=>{
         }
         else
         {
-            if(user_details['qualifications'])
-            {
-                user_details.qualifications = user_details.qualifications.split('\n')
-            }
             var user = await Doctor.create(user_details)
+            user.password = undefined
+            res.send({status: 'success', ...user})
         }
-        
-        res.send('Successful')
     }
     catch(err)
     {
-        res.send(err.message)
+        res.send({status: 'failed', message: err.errors, thrown : err.message})
     }
 
 })
@@ -51,38 +52,79 @@ router.put('/update', async(req,res)=>{
         var user = await Doctor.findOne({username: req.body.username})
         if(user)
         {
-            let detail= Object.keys(req.body)
-            detail.forEach((key)=> {
-                if(key!=='username')
-                {
-                    user[key]= req.body[key]
-                }
-            })
-            user.save()
+            var updated = await Doctor.updateOne({username: req.body.username}, { $set: { ...req.body }})
+            var user_new = await Doctor.findOne({username: req.body.username})
+            user_new.password = undefined
+            res.send({status: 'success', ...user_new})
         }
         else
         {
             throw new Error('User does not exist')
         }
-    
-        res.send('Successful')
+        
     }
     catch(err)
     {
-        res.send(err.message)
+        res.send({status: 'failed', message: err.message})
     }
 
 })
 
+//get details of all doctors
+router.get('/all', async(req, res)=>{
+    try
+    {
+        var doctors = await Doctor.find({}, {password: 0})
+        res.send({status: 'success', data: doctors})
+    }
+    catch(err)
+    {
+        res.send({status: 'failed', message: err.message})
+    }
+})
+
+router.get('/search/:spec/:search_str', async(req, res)=>{
+    try
+    {
+        if(req.params.spec==='all')
+        {
+            var doctors = await Doctor.find({name: {$regex:  new RegExp(req.params.search_str), $options: 'i'}})
+            res.send({status: 'success', data: doctors})
+        }
+        else
+        {
+            var doctors = await Doctor.find({name: {$regex: new RegExp(req.params.search_str), $options: 'i'}, specialization: req.params.spec})
+            res.send({status: 'success', data: doctors})
+        }
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.send({status: 'failed', message: err.message})
+    }
+})
+
+router.get('/specialization/:spec', async(req, res)=>{
+    try
+    {
+        var doctors = await Doctor.find({specialization: req.params.spec})
+        res.send({status: 'success', data: doctors})
+    }
+    catch(err)
+    {
+        res.send({status: 'failed', message: err.message})
+    }
+})
+
+
 //get details of one doctor
 router.get('/:username', async(req, res)=>{
-    
     try
     {
         var user = await Doctor.findOne({username: req.params.username}, {password:0, createdAt:0, _id:0, __v:0})
         if(user)
         {
-            res.send(user)
+            res.send({status: 'success', ...user})
         }
         else
         {
@@ -91,7 +133,7 @@ router.get('/:username', async(req, res)=>{
     }
     catch(err)
     {
-        res.send(err.message)
+        res.send({status: 'failed', message: err.message})
     }
 })
 
@@ -100,17 +142,18 @@ router.post('/login', async(req,res)=>{
     var user_details = req.body
     try
     {
-        var user = await Doctor.findOne({username: user_details.username}, {_id:0, username:1, password:1})
+        var user = await Doctor.findOne({username: user_details.username})
         
         if(user)
         {
             if(bcrypt.compareSync(user_details.password, user.password))
             {
-                res.send('Login successful')
+                user.password = undefined
+                res.send({status: 'success', ...user})
             }
             else
             {
-                throw new Error('Passwords do not match')
+                throw new Error('Password does not match')
             }
         }
         else
@@ -120,10 +163,11 @@ router.post('/login', async(req,res)=>{
     }
     catch(err)
     {
-        res.send(err.message)
+        res.send({status: 'failed', message: err.errors, thrown : err.message})
     }
 
 })
+
 
 
 

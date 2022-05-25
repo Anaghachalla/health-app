@@ -1,0 +1,73 @@
+*{
+    text-align: left;
+}
+
+div#heading{
+    margin: 5%;
+    margin-right: 50%;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 1%;
+}
+
+div#heading>h2{
+    font-family: 'Tajawal', sans-serif;
+    margin-left: 1%;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.options>div:hover{
+    transform: scale(1.05);
+}
+
+.options>div>img{
+    width: 300px;
+}
+
+.options>div{
+    width: 350px;
+    margin: 2%;
+    box-shadow: 3px 3px 8px 8px #b6b6b6;
+}
+
+.options>div>h4{
+    text-align: center;
+}
+
+.upcoming-appointments{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.spec{
+    font-style: italic;
+}
+
+.heading{
+    font-weight: bolder;
+}
+
+.appointment-card{
+    margin: 2%;
+    width: 93%;
+    height: 170px;
+    padding: 18px;
+    box-shadow: 2px 2px 10px 3px #afafaf;
+}
+
+.appointment-card:hover{
+    transform: scale(1.03);
+}
