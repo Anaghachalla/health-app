@@ -1,7 +1,7 @@
 const express = require('express')
 const axios = require('axios').default
 
-fdaKey = 'ZhWpNP7wGYrSnXvxvela8ywvxskvkgVGOgu9Moce'
+fdaKey = //enter your key
 
 const Cart = require('../schemas/cart-schema')
 const Order = require('../schemas/order-schema')
